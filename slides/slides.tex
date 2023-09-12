@@ -221,20 +221,20 @@
      % DOE logo
       \node [draw=none, fill=white, opacity=0.7, align=center, anchor=south] at ([yshift=0.01cm] current page.south)
       {
-          \includegraphics[keepaspectratio, height=0.60in, trim={22 70 16 67}, clip]{../figures/logos/DOE_BES_LOGO.pdf}
+          \includegraphics[keepaspectratio, height=0.63in, trim={22 70 16 67}, clip]{../figures/logos/DOE_BES_LOGO.pdf}
       };
   
-      \node [draw=none, opacity=1.0, align=center, anchor=south] at ([xshift=3.2cm, yshift=-0.19cm] current page.south)
+      \node [draw=none, opacity=1.0, align=center, anchor=south] at ([xshift=3.3cm, yshift=-0.12cm] current page.south)
       {
-        \small \#0000256977
+        \small DE-SC0022329
         %\includegraphics[keepaspectratio, height=1.2in]{../figures/logos/DOE_BES_LOGO.pdf}
       };
   
       % title
       \usebeamercolor{title}
-      \node [text width=0.85\paperwidth, align=center, draw=none, fill=black, rounded corners,
+      \node [text width=0.91\paperwidth, align=center, draw=none, fill=black, rounded corners,
              fill opacity=0.3, text opacity=1, inner sep=5pt,
-             below = 0.3in of current page.center, anchor=center] 
+             below = 0.05in of current page.center, anchor=center] 
       {
         {
           \huge \titlecolor{} \inserttitle\par
@@ -273,13 +273,14 @@
 % }}}
 
 % ----- title/author info -----
-\title{Spatially resolving energy dissipation in molecular dynamics of polymer nanocomposites}
+\title{Dissecting the Payne effect: How filler--polymer competition reinforces elastomeric nanocomposites}
 \presenter{Pierre Kawak}
 % for other authors
 \author{Harshad Bhapkar, David S. Simmons}
 \institute{University of South Florida}
-\location{APS March}
-\date{March 10, 2023}
+%\location{IOP Polymer Physics Group Graduate Symposium}
+\location{\textcolor{black}{IOP Polymer\\Physics Group\\Grad. Symposium}}
+\date{September 8, 2023}
 
 \begin{document}
 
@@ -320,6 +321,466 @@
 
   \end{columns}
 
+% }}}
+\end{frame}
+
+\begin{frame}<1-7>[label=regimes, c]{Reinforcement by CB is a multi-mechanism process}
+% {{{
+
+  \begin{columns}[T]
+
+    \column{0.60\textwidth}
+      \centering
+
+      \vspace{\baselineskip}
+
+      \only<1>{\begin{tikzpicture}
+
+        \node[text width=\columnwidth, align=center, inner sep=0pt] (A) {
+        \includegraphics[width=\textwidth]{../figures/fig-reinforcement_schematic/fig-reinforcement_schematic.pdf}
+        }; 
+
+      \end{tikzpicture}
+
+    }
+
+    \onslide<2->{\begin{tikzpicture}
+
+        \node[text width=\columnwidth, align=center, inner sep=0pt] (A) {
+        \includegraphics[width=\textwidth]{../figures/fig-reinforcement_schematic/fig-reinforcement_schematic_wcolor.pdf}
+        }; 
+    }
+
+      \end{tikzpicture}
+
+%  \vspace{-\baselineskip}
+
+  {
+    \scriptsize 
+    Warasitthinon and Robertson. \textit{Rubber Chem. Technol}.\par
+    91, 577-594 (2018)\par
+  }
+
+    \column{0.40\textwidth}
+      \centering
+      \vspace{-0.5\baselineskip}
+
+      \only<2-7>{
+      \begin{block}{Stress Response Regimes}
+      \begin{itemize}
+        \item<2-> I: Strain softening (Payne effect)
+        \item<3-> II: Transition
+        \item<4-> III: Strain hardening
+        \item<5-> IV: Modulus plateau
+        \item<6-> V: Softening and Fracture
+      \end{itemize}
+      \end{block}
+
+      \onslide<7->{
+      \begin{block}{What Molecular Mechanisms Lead to Such Response?}
+      \begin{itemize}
+        \item Investigate systems via MD
+        \item Species-- and Spatial--resolution
+      \end{itemize}
+      \end{block}
+      }
+      }
+
+      \onslide<8>{
+      \begin{block}{Stress Response Regimes}
+        I: Strain softening (Payne effect)
+        \begin{itemize}
+          \item Breakdown of jammed filler network
+        \end{itemize}
+        II: Transition
+        \begin{itemize}
+          \item Filler contributes dissipatively
+        \end{itemize}
+        III: Strain hardening
+        \begin{itemize}
+          \item Filler resists lateral compression; $P_{\mathrm{Filler}}^{\mathrm{normal}} \uparrow$
+          \item Filler network reforms
+        \end{itemize}
+        V: Softening and Fracture
+        \begin{itemize}
+          \item $P_{\mathrm{Polymer}} << 0$
+          \item Unstable$\rightarrow$Voids$\rightarrow$Fracture
+        \end{itemize}
+      \end{block}
+      }
+
+  \end{columns}
+% }}}
+\end{frame}
+
+\begin{frame}[c]{Model I: ``Neat'' rubber of crosslinked Kremer-Grest chains at high T}
+% {{{
+
+  \centering
+  \begin{columns}[c]
+
+  \column{0.45\textwidth}
+
+    \begin{block}{Rubber model}
+    $E_{\mathrm{LJ}}(r_{ij}) = 4 \epsilon \left[ \left( \frac{\sigma}{r_{ij}} \right)^{12} \left( \frac{\sigma}{r_{ij}} \right)^{6} \right]$
+    \vspace{0.5\baselineskip}
+
+    $E_{\mathrm{FENE}}(l_{i}) = -0.5 K R_{0}^{2} \left[ 1 - \left( \frac{l_{i}}{R_{0}} \right)^{2} + E_{\mathrm{LJ}}(l_{i}) + \epsilon \right]$
+    \vspace{0.5\baselineskip}
+
+    \begin{itemize}
+      \item 5000 KG chains of 20 beads
+      \item $95\%$ crosslinked
+    \end{itemize}
+    \end{block}
+
+  \column{0.5\textwidth}
+
+    \centering
+    \includegraphics[width=\textwidth]{figs/CrosslinkingScheme.png}
+
+  \end{columns}
+
+% }}}
+\end{frame}
+
+\begin{frame}[c]{Model II: ``Filled'' rubber with clusters of icosahedra-shaped particles}
+% {{{
+
+  \centering
+  \begin{columns}[T]
+
+  \column{0.35\textwidth}
+
+    \centering
+    \onslide<1->{
+    \blocktitle{Sintered Icosahedra Clusters}
+    \includegraphics[trim={5 1 0 0}, clip, width=\textwidth]{figs/SinteredIcosahedraCluster.png}
+    }
+
+  \column{0.60\textwidth}
+
+    \centering
+    \onslide<2->{
+    \blocktitle{Similarity to CB Images}
+
+    \vspace{\baselineskip}
+    \begin{columns}[c]
+
+      \column{0.5\textwidth}
+      \centering
+      \includegraphics[width=\textwidth]{figs/particle_transparent.pdf}
+      \column{0.5\textwidth}
+      \centering
+      \includegraphics[width=\textwidth]{figs/CB_Image.jpg}
+      {\scriptsize Medalia. Rubber Chem. Technol. 47, 411 (1974)\par}
+
+    \end{columns}
+    }
+  \end{columns}
+% }}}
+\end{frame}
+
+\begin{frame}[c]{Extensional deformation molecular dynamics provides stress response}
+% {{{
+  \begin{columns}[c]
+
+  \column{0.55\textwidth}
+  \centering
+
+%  \vspace{-1\baselineskip}
+  \animategraphics[width=\textwidth, autoplay, loop]{3}{../figures/Neat_Stretching/Neat_Stretching-}{0}{39}
+
+  \vspace{1.0\baselineskip}
+
+  \animategraphics[width=\textwidth, autoplay, loop]{3}{../figures/Filler_Stretching/Filler_Stretching-}{0}{39}
+
+  \column{0.45\textwidth}
+  \centering
+
+  \vspace{\baselineskip}
+  \onslide<2>{
+  \includegraphics[]{../figures/fig-stress_vs_shear/fig-stress_vs_shear.pdf}
+  }
+
+  \vspace{-14.5\baselineskip}
+  \onslide<3>{
+  \includegraphics[]{../figures/fig-stress_vs_shear/fig-stress_vs_shear.diff.pdf}
+  }
+
+  \end{columns}
+% }}}
+\end{frame}
+
+\begin{frame}[c]{Species--resolved $\sigma$ points to poisson ratio mismatch-driven reinforcement}
+%Crossover in elastomer reinforcement from 1) by jammed solid at low strain to 2) by plastic granular fluid at high strain}
+% {{{
+  \begin{columns}[T]
+
+  \column{0.45\textwidth}
+  \centering
+
+  \onslide<1->{\begin{tikzpicture}
+    \node[text width=\columnwidth, align=center, inner sep=0pt] (A) {
+      \blocktitle{Tension in x}
+      \includegraphics{../figures/fig-stress_vs_shear/fig-stress_vs_shear.groups.pdf}
+    };
+
+    \onslide<3->{\node[text width=3.9cm, align=center, fill=white, rounded corners=0.2cm, 
+          draw=darkblue, thick, opacity=0.7, text opacity=1,
+          above right = 1.5 and 2.1 of A.south west, anchor=south west] (B) {
+      \small{}Mostly Dissipative Filler\par
+    };}
+
+  \end{tikzpicture}
+  }
+
+  \column{0.45\textwidth}
+  \centering
+
+  \onslide<2->{\begin{tikzpicture}
+    \node[text width=\columnwidth, align=center, inner sep=0pt] (A) {
+      \blocktitle{Compression in y \& z}
+      \includegraphics{../figures/fig-stress_vs_shear/fig-stress_vs_shear.norm.groups.pdf}
+    };
+
+    \onslide<3->{\node[text width=3.9cm, align=center, fill=white, rounded corners=0.2cm, 
+          draw=darkblue, thick, opacity=0.7, text opacity=1,
+          above right = -2.0 and 2.3 of A.north west, anchor=north west] (B) {
+      \small{}Normal Pressure Balance Maintains Cohesion after Filler Yield\par
+    };}
+
+  \end{tikzpicture}
+  }
+
+  \end{columns}
+
+  \vspace{-\baselineskip}
+  {
+    \scriptsize 
+    Smith and Simmons. Soft Matter. 15, 656 (2019)\par
+  }
+% }}}
+\end{frame}
+
+\begin{frame}[c]{A closer look at filler contributions}
+%Crossover in elastomer reinforcement from 1) by jammed solid at low strain to 2) by plastic granular fluid at high strain}
+% {{{
+  \begin{columns}[T]
+
+  \column{0.45\textwidth}
+  \centering
+
+  \begin{equation*}
+  \Delta \sigma = \sigma_{\mathrm{Filled}} - \sigma_{\mathrm{Neat}}
+  = \sigma - \sigma_{0}
+  \end{equation*}
+  \onslide<2->{
+  \begin{equation*}
+  = \sigma_{P} \phi_{P} + \sigma_{F} \phi_{F} - \sigma_{0}
+  \end{equation*}
+  }
+  \onslide<3->{
+  \begin{equation*}
+  = \sigma_{P} \left(1-\phi_{F}\right) + \sigma_{F} \phi_{F} - \sigma_{0}
+  \end{equation*}
+  }
+  \onslide<4->{
+  \begin{equation*}
+  \Delta \sigma = \sigma^{P} - \sigma_{0}\ \ \ \ \ + \ \ \ \ \ \phi^{F} \left( \sigma^{F} - \sigma^{P} \right)
+  \end{equation*}
+  }
+
+  \onslide<4->{\begin{tikzpicture}
+
+  \node[text width=2.7cm, align=center, fill=white, rounded corners=0.2cm, 
+        draw=red, opacity=0.7, text opacity=1, 
+        above right = -1.0 and -2.8, anchor=center] (B) {
+    \small{}\color{red}Filler-modified polymer response\par
+  };
+
+  \node[text width=2.7cm, align=center, fill=white, rounded corners=0.2cm, 
+        draw=blue, thick, opacity=0.7, text opacity=1,
+        above right = 0.0 and 4.0 of B.south west, anchor=south west] (C) {
+    \small{}\color{blue}Direct excess filler contribution\par
+  };
+
+  \end{tikzpicture}}
+
+  \column{0.45\textwidth}
+  \centering
+
+%  \blocktitle{Compression in y \& z}
+  \includegraphics<5->{../figures/fig-component_analysis/fig-component_analysis.pdf}
+
+  \end{columns}
+% }}}
+\end{frame}
+
+\againframe<8>{regimes}
+
+\begin{frame}[t]{Acknowledgements}
+% {{{
+
+  \begin{columns}[T]
+
+    \column{0.75\textwidth}
+      \centering
+      \begin{tikzpicture}
+
+        \node[text width=\columnwidth, align=center, inner sep=0pt] (A) {
+          %\includegraphics[width=\textwidth]{figs/Simmons_Group_Picture.jpg}
+          \includegraphics[trim={30 200 200 100}, clip, width=\textwidth]{figs/2023_Simmons_Group.jpg}
+        }; 
+
+        \node[text width=1.5cm, align=center, fill=white, rounded corners=0.2cm, 
+              opacity=0.5, text opacity=1, 
+              above right = 5.0 and 4.8 of A.south west, anchor=south west] (B) {
+          \small{}David S. Simmons\par
+        };
+
+        \node[text width=1.5cm, align=center, fill=white, rounded corners=0.2cm, 
+              draw=lightorange, thick, opacity=0.5, text opacity=1,
+              above right = 2.5 and 5.8 of A.south west, anchor=south west] (C) {
+          \small{}Harshad Bhapkar\par
+        };
+
+      \end{tikzpicture}
+
+    \column{0.25\textwidth}
+%      \vspace{-8pt}
+%      {\small
+%      \begin{itemize}
+%        \item {\color{lightorange}Prof. Glenn Fredrickson (UCSB)}
+%        \item Prof. Hector Ceniceros (UCSB)
+%        \item {\color{lightorange}Dr. Kris Delaney (UCSB)}
+%        \item Dr. Tatsuhiro Iwama (Asahi Kasei)
+%        \item {\color{lightorange}Jan Garcia (UCSB)}
+%      \end{itemize}
+%      }
+  \begin{tikzpicture}
+
+    \node[inner sep=0pt, align=center ] (A)
+    { 
+%      \includegraphics[width=2.55cm]{./figs/BYU_IM26b.pdf}
+      \includegraphics[keepaspectratio, height=0.7in, trim={30 220 30 220}, clip]{../figures/logos/University-of-South-Florida-Symbol.png}
+    };
+
+    \node[inner sep=0pt, align=center, anchor=center, below=9 pt of A.south] (B)
+    { 
+      \includegraphics[height=0.95in]{../figures/logos/DOE_LOGO.png}
+    };
+
+    \node[inner sep=0pt, align=center, text width=3cm, below= 3 pt of B.south] (C) { 
+      USF CIRCE \\[2pt]
+      \includegraphics[height=0.7in]{./figs/BYU_ORC_chassis.jpg}
+    };
+
+  \end{tikzpicture}
+
+  \end{columns}
+%  \vspace{12pt}
+%  \begin{center}
+%  \end{center}
+
+% }}}
+\end{frame}
+
+\begin{frame}[c]{Impact of heterogeneity due to particle contact \& interfiller polymer?}
+% {{{
+  \begin{columns}[T]
+
+  \column{0.45\textwidth}
+  \centering
+
+  \begin{tikzpicture}
+    \node[ fill, color=red, text=white, rounded corners, inner sep=4pt,
+           align=center, minimum width=3cm, minimum height=\baselineskip
+    ] 
+    {\large Interfiller Polymer\par};
+  \end{tikzpicture}
+  \includegraphics[height=0.33\textheight]{figs/GlassyBridges.png}
+
+  \vspace{0.5\baselineskip}
+
+  \begin{tikzpicture}
+    \node[ fill, color=blue, text=white, rounded corners, inner sep=4pt,
+           align=center, minimum width=3cm, minimum height=\baselineskip] 
+    {\large Filler Contact\par};
+  \end{tikzpicture}
+
+  \includegraphics[height=0.3\textheight]{figs/FillerContact.png}
+
+  \column{0.45\textwidth}
+  \centering
+
+  \onslide<2>{
+  \blocktitle{Extensional Stress}
+  \includegraphics{../figures/fig-stress_spatial/fig-stress_spatial.x.pdf}
+  }
+
+  \end{columns}
+
+% }}}
+\end{frame}
+
+\begin{frame}{Particle--particle contact is particularly important at high temperature}
+% {{{
+  \begin{columns}[T]
+
+  \column{0.45\textwidth}
+  \centering
+
+  \blocktitle{Extensional Stress}
+  \includegraphics{../figures/fig-stress_spatial/fig-stress_spatial.x.pdf}
+
+  \column{0.45\textwidth}
+  \centering
+
+  \blocktitle{Normal Pressure}
+  \includegraphics{../figures/fig-stress_spatial/fig-stress_spatial.y.pdf}
+
+  \end{columns}
+% }}}
+\end{frame}
+
+\begin{frame}{Species-- \& spatially--resolved data are insightful}
+% {{{
+  \begin{columns}[T]
+
+  \column{0.6\textwidth}
+  \centering
+
+  \begin{block}{Multiple regimes of reinforcement}
+  \begin{itemize}
+    \item Jammed solid reinforcement at low $\gamma$
+    \item Plastic granular fluid at high $\gamma$
+  \end{itemize}
+  \end{block}
+
+  \begin{block}{Species-- \& Spatially--resolved data}
+  \begin{itemize}
+    \item Higher temperature in filler during extension
+    \item Particle--particle contact is origin of reinforcement at high T
+  \end{itemize}
+  \end{block}
+
+  \begin{block}{How general are these results?}
+  \begin{itemize}
+    \item What happens at low T? Glassy bridges?
+    \item Effect of dispersion state, cluster size, etc.?
+    \item Filler--filler \& filler--polymer interactions
+  \end{itemize}
+  \end{block}
+
+  \column{0.40\textwidth}
+  \centering
+
+  \includegraphics[]{../figures/fig-stress_vs_shear/fig-stress_vs_shear.ratio.pdf}
+
+  \includegraphics[]{../figures/fig-pratios_between/fig-pratios_between.ratio.pdf}
+
+  \end{columns}
 % }}}
 \end{frame}
 
@@ -411,250 +872,6 @@
 % }}}
 \end{frame}
 
-\begin{frame}[c]{Model I: ``Neat'' rubber of crosslinked Kremer-Grest chains at high T}
-% {{{
-
-  \centering
-  \begin{columns}[c]
-
-  \column{0.45\textwidth}
-
-    \begin{block}{Rubber model}
-    $E_{\mathrm{LJ}}(r_{ij}) = 4 \epsilon \left[ \left( \frac{\sigma}{r_{ij}} \right)^{12} \left( \frac{\sigma}{r_{ij}} \right)^{6} \right]$
-    \vspace{0.5\baselineskip}
-
-    $E_{\mathrm{FENE}}(l_{i}) = -0.5 K R_{0}^{2} \left[ 1 - \left( \frac{l_{i}}{R_{0}} \right)^{2} + E_{\mathrm{LJ}}(l_{i}) + \epsilon \right]$
-    \vspace{0.5\baselineskip}
-
-    \begin{itemize}
-      \item 5000 KG chains of 20 beads
-      \item $95\%$ crosslinked
-    \end{itemize}
-    \end{block}
-
-  \column{0.5\textwidth}
-
-    \centering
-    \includegraphics[width=\textwidth]{figs/CrosslinkingScheme.png}
-
-  \end{columns}
-
-% }}}
-\end{frame}
-
-\begin{frame}[c]{Model II: ``Filled'' rubber with clusters of icosahedra-shaped particles}
-% {{{
-
-  \centering
-  \begin{columns}[T]
-
-  \column{0.35\textwidth}
-
-    \centering
-    \onslide<1->{
-    \blocktitle{Sintered Icosahedra Clusters}
-    \includegraphics[trim={5 1 0 0}, clip, width=\textwidth]{figs/SinteredIcosahedraCluster.png}
-    }
-
-  \column{0.60\textwidth}
-
-    \centering
-    \onslide<2->{
-    \blocktitle{Similarity to CB Images}
-
-    \vspace{\baselineskip}
-    \begin{columns}[c]
-
-      \column{0.5\textwidth}
-      \centering
-      \includegraphics[width=\textwidth]{figs/particle_transparent.pdf}
-      \column{0.5\textwidth}
-      \centering
-      \includegraphics[width=\textwidth]{figs/CB_Image.jpg}
-      {\scriptsize Medalia. Rubber Chem. Technol. 47, 411 (1974)\par}
-
-    \end{columns}
-    }
-  \end{columns}
-% }}}
-\end{frame}
-
-\begin{frame}[c]{Extensional deformation molecular dynamics provides stress response}
-% {{{
-  \begin{columns}[c]
-
-  \column{0.55\textwidth}
-  \centering
-
-%  \vspace{-1\baselineskip}
-  \animategraphics[width=\textwidth]{3}{../figures/Neat_Stretching/Neat_Stretching-}{0}{39}
-
-  \vspace{1.0\baselineskip}
-
-  \animategraphics[width=\textwidth]{3}{../figures/Filler_Stretching/Filler_Stretching-}{0}{39}
-
-  \column{0.45\textwidth}
-  \centering
-
-  \vspace{\baselineskip}
-  \onslide<2>{
-  \includegraphics[]{../figures/fig-stress_vs_shear/fig-stress_vs_shear.pdf}
-  }
-
-  \vspace{-14.5\baselineskip}
-  \onslide<3>{
-  \includegraphics[]{../figures/fig-stress_vs_shear/fig-stress_vs_shear.diff.pdf}
-  }
-
-  \end{columns}
-% }}}
-\end{frame}
-
-\begin{frame}[c]{Species--resolved $\sigma$ points to poisson ratio mismatch-driven enforcement}
-%Crossover in elastomer reinforcement from 1) by jammed solid at low strain to 2) by plastic granular fluid at high strain}
-% {{{
-  \begin{columns}[T]
-
-  \column{0.45\textwidth}
-  \centering
-
-  \onslide<1->{
-  \blocktitle{Tension in x}
-  \includegraphics{../figures/fig-stress_vs_shear/fig-stress_vs_shear.groups.pdf}
-  }
-
-  \column{0.45\textwidth}
-  \centering
-
-  \onslide<2->{
-  \blocktitle{Compression in y \& z}
-  \includegraphics{../figures/fig-stress_vs_shear/fig-stress_vs_shear.norm.groups.pdf}
-  }
-
-  \end{columns}
-
-  \vspace{-\baselineskip}
-    {
-      \scriptsize 
-      Smith and Simmons. Soft Matter. 15, 656 (2019)\par
-    }
-% }}}
-\end{frame}
-
-\begin{frame}[c]{A closer look at filler contributions}
-%Crossover in elastomer reinforcement from 1) by jammed solid at low strain to 2) by plastic granular fluid at high strain}
-% {{{
-  \begin{columns}[T]
-
-  \column{0.45\textwidth}
-  \centering
-
-  \begin{equation*}
-  \Delta \sigma = \sigma^{\mathrm{Filled}} - \sigma^{\mathrm{Neat}}
-  = \sigma - \sigma^{0}
-  \end{equation*}
-  \onslide<2->{
-  \begin{equation*}
-  = \sigma_{F} + \sigma_{P} - \sigma^{0}
-  \end{equation*}
-  }
-  \onslide<3->{
-  \begin{equation*}
-  = \bar{\sigma}_{F}x_{F} + \bar{\sigma}_{P}(1-x_{F}) - \sigma^{0}
-  \end{equation*}
-  }
-  \onslide<4->{
-  \begin{equation*}
-  \Delta \sigma =
-  \end{equation*}
-  \begin{equation*}
-  \left( \bar{\sigma}_{F}-\bar{\sigma}_{P} \right) x_{F} \ \ + \ \ \Delta \bar{\sigma}_{P}
-  \end{equation*}
-  }
-
-  \onslide<4->{\begin{tikzpicture}
-
-  \node[text width=2.7cm, align=center, fill=white, rounded corners=0.2cm, 
-        draw=blue, opacity=0.7, text opacity=1, 
-        above right = -1.0 and -2.8, anchor=center] (B) {
-    \small{}\color{blue}Direct excess filler contribution\par
-  };
-
-  \node[text width=2.7cm, align=center, fill=white, rounded corners=0.2cm, 
-        draw=red, thick, opacity=0.7, text opacity=1,
-        above right = 0.0 and 4.0 of B.south west, anchor=south west] (C) {
-    \small{}\color{red}Filler-modified polymer response\par
-  };
-
-  \end{tikzpicture}}
-
-  \column{0.45\textwidth}
-  \centering
-
-%  \blocktitle{Compression in y \& z}
-  \includegraphics<5->{../figures/fig-component_analysis/fig-component_analysis.pdf}
-
-  \end{columns}
-% }}}
-\end{frame}
-\begin{frame}[c]{Impact of heterogeneity due to particle contact \& interfiller polymer?}
-% {{{
-  \begin{columns}[T]
-
-  \column{0.45\textwidth}
-  \centering
-
-  \begin{tikzpicture}
-    \node[ fill, color=red, text=white, rounded corners, inner sep=4pt,
-           align=center, minimum width=3cm, minimum height=\baselineskip
-    ] 
-    {\large Interfiller Polymer\par};
-  \end{tikzpicture}
-  \includegraphics[height=0.33\textheight]{figs/GlassyBridges.png}
-
-  \vspace{0.5\baselineskip}
-
-  \begin{tikzpicture}
-    \node[ fill, color=blue, text=white, rounded corners, inner sep=4pt,
-           align=center, minimum width=3cm, minimum height=\baselineskip] 
-    {\large Filler Contact\par};
-  \end{tikzpicture}
-
-  \includegraphics[height=0.3\textheight]{figs/FillerContact.png}
-
-  \column{0.45\textwidth}
-  \centering
-
-  \onslide<2>{
-  \blocktitle{Extensional Stress}
-  \includegraphics{../figures/fig-pxx_between/fig-pxx_between.groups.pdf}
-  }
-
-  \end{columns}
-
-% }}}
-\end{frame}
-
-\begin{frame}{Particle--particle contact is particularly important at high temperature}
-% {{{
-  \begin{columns}[T]
-
-  \column{0.45\textwidth}
-  \centering
-
-  \blocktitle{Extensional Stress}
-  \includegraphics{../figures/fig-pxx_between/fig-pxx_between.groups.pdf}
-
-  \column{0.45\textwidth}
-  \centering
-
-  \blocktitle{Normal Pressure}
-  \includegraphics{../figures/fig-pyy_between/fig-pyy_between.groups.pdf}
-
-  \end{columns}
-% }}}
-\end{frame}
-
 \begin{frame}[c]{Higher temperature of contacting particle shells suggests higher dissipation in contcting filler}
 % {{{
   \begin{columns}[T]
@@ -693,157 +910,6 @@
     };
   \end{tikzpicture}
 
-% }}}
-\end{frame}
-
-\begin{frame}{Species-- \& spatially--resolved data are insightful}
-% {{{
-  \begin{columns}[T]
-
-  \column{0.6\textwidth}
-  \centering
-
-  \begin{block}{Multiple regimes of reinforcement}
-  \begin{itemize}
-    \item Jammed solid reinforcement at low $\gamma$
-    \item Plastic granular fluid at high $\gamma$
-  \end{itemize}
-  \end{block}
-
-  \begin{block}{Species-- \& Spatially--resolved data}
-  \begin{itemize}
-    \item Higher temperature in filler during extension
-    \item Particle--particle contact is origin of reinforcement at high T
-  \end{itemize}
-  \end{block}
-
-  \begin{block}{How general are these results?}
-  \begin{itemize}
-    \item What happens at low T? Glassy bridges?
-    \item Effect of dispersion state, cluster size, etc.?
-    \item Filler--filler \& filler--polymer interactions
-  \end{itemize}
-  \end{block}
-
-  \column{0.40\textwidth}
-  \centering
-
-  \includegraphics[]{../figures/fig-stress_vs_shear/fig-stress_vs_shear.ratio.pdf}
-
-  \includegraphics[]{../figures/fig-pratios_between/fig-pratios_between.ratio.pdf}
-
-  \end{columns}
-% }}}
-\end{frame}
-
-\begin{frame}[t]{Acknowledgements}
-% {{{
-
-  \begin{columns}[T]
-
-    \column{0.75\textwidth}
-      \centering
-      \begin{tikzpicture}
-
-        \node[text width=\columnwidth, align=center, inner sep=0pt] (A) {
-          %\includegraphics[width=\textwidth]{figs/Simmons_Group_Picture.jpg}
-          \includegraphics[trim={30 200 200 100}, clip, width=\textwidth]{figs/2023_Simmons_Group.jpg}
-        }; 
-
-        \node[text width=1.5cm, align=center, fill=white, rounded corners=0.2cm, 
-              opacity=0.5, text opacity=1, 
-              above right = 5.0 and 4.8 of A.south west, anchor=south west] (B) {
-          \small{}David S. Simmons\par
-        };
-
-        \node[text width=1.5cm, align=center, fill=white, rounded corners=0.2cm, 
-              draw=lightorange, thick, opacity=0.5, text opacity=1,
-              above right = 2.5 and 5.8 of A.south west, anchor=south west] (C) {
-          \small{}Harshad Bhapkar\par
-        };
-
-      \end{tikzpicture}
-
-    \column{0.25\textwidth}
-%      \vspace{-8pt}
-%      {\small
-%      \begin{itemize}
-%        \item {\color{lightorange}Prof. Glenn Fredrickson (UCSB)}
-%        \item Prof. Hector Ceniceros (UCSB)
-%        \item {\color{lightorange}Dr. Kris Delaney (UCSB)}
-%        \item Dr. Tatsuhiro Iwama (Asahi Kasei)
-%        \item {\color{lightorange}Jan Garcia (UCSB)}
-%      \end{itemize}
-%      }
-  \begin{tikzpicture}
-
-    \node[inner sep=0pt, align=center ] (A)
-    { 
-%      \includegraphics[width=2.55cm]{./figs/BYU_IM26b.pdf}
-      \includegraphics[keepaspectratio, height=0.7in, trim={30 220 30 220}, clip]{../figures/logos/University-of-South-Florida-Symbol.png}
-    };
-
-    \node[inner sep=0pt, align=center, anchor=center, below=9 pt of A.south] (B)
-    { 
-      \includegraphics[height=0.95in]{../figures/logos/DOE_LOGO.png}
-    };
-
-    \node[inner sep=0pt, align=center, text width=3cm, below= 3 pt of B.south] (C) { 
-      USF CIRCE \\[2pt]
-      \includegraphics[height=0.7in]{./figs/BYU_ORC_chassis.jpg}
-    };
-
-  \end{tikzpicture}
-
-  \end{columns}
-%  \vspace{12pt}
-%  \begin{center}
-%  \end{center}
-
-% }}}
-\end{frame}
-
-\begin{frame}[c]{Different mechanisms of elastomer reinforcement at low and high strain}
-% {{{
-  \begin{columns}[T]
-
-  \column{0.45\textwidth}
-  \centering
-
-  \only<1>{
-  \blocktitle{Low $\gamma$}
-  }
-  \only<2-3, 6>{
-  \blocktitle{Jammed Filler Reinforcement at Low $\gamma$}
-  }
-  \includegraphics<1-3, 6>{../figures/fig-stress_vs_shear_lowgamma/fig-stress_vs_shear.pdf}
-
-  \only<4,5>{
-  \blocktitle{Analysis by group}
-  \includegraphics<4>{../figures/fig-stress_vs_shear/fig-stress_vs_shear.groups.pdf}
-  \includegraphics<5>{../figures/fig-stress_vs_shear/fig-stress_vs_shear.diff.pdf}
-  }
-
-  \column{0.45\textwidth}
-  \centering
-
-  \only<1>{
-  \blocktitle{High $\gamma$}
-  }
-  \only<4->{
-  \blocktitle{Plastic Granular Fluid at High $\gamma$}
-  }
-  \only<1,4->{
-  \includegraphics{../figures/fig-stress_vs_shear/fig-stress_vs_shear.pdf}
-  }
-
-  \only<2,3>{
-  \blocktitle{Analysis by group}
-  \includegraphics<2>{../figures/fig-stress_vs_shear_lowgamma/fig-stress_vs_shear.groups.pdf}
-  \includegraphics<3>{../figures/fig-stress_vs_shear_lowgamma/fig-stress_vs_shear.diff.pdf}
-  }
-
-  \end{columns}
 % }}}
 \end{frame}
 
